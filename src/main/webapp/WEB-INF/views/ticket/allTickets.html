@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All ticket</title>
+</head>
+<body>
+<div align= "center">
+    <form th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+<h1> <p th:text="'Hello,  '+${username}">VALUE</p>
+</h1>>
+
+<div th:each="ticket : ${tickets}">
+
+     <form th:method="PATCH" th:action="@{/tickets/action/{id}(id=${ticket.getId()})}" th:object="${ticket}">
+            <a   th:text="${ticket.getId() + ', ' +ticket.getName_ticket()+ ','+
+            ticket.getDesired_resolution_date()+', Urgency:'+urgencyEnum[ticket.getUrgency_id()-1].name()+
+            ', State: '+stateEnum[ticket.getState_id()-1].name()}">ticket</a>
+
+    <select name="action"  onchange="this.form.submit()">  //можно сделать ссылкой на разные html для разных ролей
+        <option  >--</option>
+        <option  value="Submit">Submit</option>
+        <option  value="Approve">Approve </option>
+        <option  value="Decline">Decline</option>
+        <option  value="Cancel">Cancel</option>
+        <option  value="Assign to Me">Assign to Me</option>
+        <option  value="Done">Done</option>
+        <option  value="Leave Feedback">Leave Feedback</option>
+        <option  value="View Feedback">View Feedback</option>
+    </select>
+        <a th:href="@{/tickets/{id}/edit(id=${ticket.getId()})}">Edit</a>
+        <a th:href="@{/tickets/{id}/overView(id=${ticket.getId()})}">overView</a>
+    </form>
+</div>
+<br/>
+<hr/>
+
+<h2><a href="tickets/create">Create new Ticket</a></h2>
+
+</body>
+</html>

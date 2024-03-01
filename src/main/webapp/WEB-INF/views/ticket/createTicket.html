@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All </title>
+</head>
+<body>
+
+<div align= "center">
+    <form th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+<form th:method="POST" th:action="@{/tickets}" th:object="${ticket}">
+
+    <div>
+        <label for="category">Enter category: </label>
+        <select name="category_id"  id="category">
+            <option th:each="categoryOpt:${categories}"
+                    th:value="${categoryOpt.getId()}"
+                    th:text="${categoryOpt.getName()}">
+            </option>
+        </select>
+        </br>
+
+        <div class="field">
+            <label>Name:</label>
+            <input type="text" th:field="*{name_ticket}">
+            <span th:if="${#fields.hasErrors('name_ticket')}" th:errors="*{name_ticket}">Name Error</span>
+        </div>
+
+        <label for="description">description: </label>
+        <input name="description" type="text" id="description">
+        <br/>
+
+    <label for="urgency">urgency: </label>
+    <select name="urgency_id"  id="urgency">
+        <option th:each="urgencyOpt : ${T(org.helpdesk.models.Urgency).values()}"
+                th:value="${urgencyOpt.getId()}"
+                th:text="${urgencyOpt.getName()}">
+        </option>
+    </select>
+    <br/>
+
+        <label for="desired_resolution_date">desired_date: </label>
+        <input th:name="desired_resolution_date" type="date" id="desired_resolution_date">
+        <br/>
+
+        <label for="text">Comment: </label>
+        <input th:name="text" type="text" id="text">
+        <br/>
+
+        <input type="submit" name="save as draft" value="Save as Draft"/>
+        <input type="submit" name="submit" value="Submit"/>
+    </div>
+</form>
+
+<a href="../tickets">All Tickets</a>
+</body>
+</html>

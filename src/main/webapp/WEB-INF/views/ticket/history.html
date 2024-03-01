@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+</head>
+<body>
+<div th:fragment="copyHistory">
+    <h3>HISTORY</h3>
+<div th:each="history : ${histories}">
+   <form th:method="PATCH" th:action="@{/tickets/action/{id}(id=${ticket.getId()})}" th:object="${history}">
+   <a   th:text="${history.getDate() + ', ' + history.getUser_id()+ ','+
+    history.getAction()+ ', '+ history.getDescription()}">history</a>
+    </form>
+</div>
+<br/>
+<hr/>
+</div>
+</body>
+</html>

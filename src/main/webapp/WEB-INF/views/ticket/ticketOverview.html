@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TicketOverview</title>
+</head>
+<body>
+
+
+<div align= "center">
+    <form th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+    <div th:fragment="copyOverview">
+
+    <h2> <label for="name">Ticket -  </label>
+    <a th:text="${ticket.getName_ticket()}" id="name">ticket</a> </h2>
+    <br/>
+
+    <label for="created_on">Created on: </label>
+    <a th:text="${ticket.getCreated_on()}" id="created_on">created_on</a>
+    <br/>
+
+    <label for="state_id">Status: </label>
+    <a th:text="${stateEnum}" id="state_id">status</a>
+    <br/>
+
+    <label for="urgency">Urgency: </label>
+    <a th:text="${urgencyEnum}" id="urgency">urgency</a>
+    </br>
+
+    <label for="category">Category: </label>
+    <a th:text="${category.getName()}" id="category">urgency</a>
+    </br>
+
+    <label for="desired_resolution_date">Desired_resolution_date: </label>
+    <a th:text="${ticket.getDesired_resolution_date()}" id="desired_resolution_date">Desired_resolution_date</a>
+    </br>
+
+    <label for="owner_id">Owner: </label>
+    <a th:text="${ticket.getUser().getFirstName()+'  '+ticket.getUser().getLastName()}" id="owner_id">Owner</a>
+    </br>
+
+    <label for="approver_id">Approver: </label>
+    <a th:text="${approver}" id="approver_id">approver</a>
+    </br>
+
+    <label for="assignee_id">Assignee: </label>
+    <a th:text="${assignee}" id="assignee_id">assignee</a>
+    </br>
+
+    <label for="description">Description: </label>
+    <a th:text="${ticket.getDescription()}" id="description">description</a>
+    <br/>
+
+        <br/>
+        <a th:href="@{/tickets/{id}/edit(id=${ticket.getId()})}">Edit</a>
+        <br/>
+        <br/>
+        <a th:href="@{/tickets}">Ticket List</a>
+        <br/>
+        <br/>
+    </div>
+
+<h3><a th:href="@{/tickets/{id}/overView/comments(id=${ticket.getId()})}">Comments</a></h3>
+    <div th:insert="~{ticket/history :: copyHistory}">copyHistory</div>
+    <br/>
+
+</body>
+</html>

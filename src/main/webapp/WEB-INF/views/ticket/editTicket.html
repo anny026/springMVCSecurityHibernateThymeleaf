@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update person</title>
+</head>
+<body>
+
+<div align= "center">
+    <form th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+<form th:method="PATCH" th:action="@{/tickets/{id}(id=${ticket.getId()})}" th:object="${ticket}">
+
+    <label for="category">Enter category: </label>
+    <select name="category_id"  th:field="*{category_id}" id="category">
+        <option th:each="categoryOpt : ${categories}"
+                th:value="${categoryOpt.getId()}"
+                th:text="${categoryOpt.getName()}">
+        </option>
+    </select>
+    </br>
+    <div class="field">
+        <label>Name:</label>
+        <input type="text" th:field="*{name_ticket}">
+        <span th:if="${#fields.hasErrors('name_ticket')}" th:errors="*{name_ticket}">Name Error</span>
+    </div>
+    <label for="description">description: </label>
+    <input type="text" th:field="*{description}"  id="description">
+    <br/>
+    <label for="urgency">urgency: </label>
+    <select name="urgency_id"  th:field="*{urgency_id}" id="urgency">
+            <option th:each="urgencyOpt : ${T(org.helpdesk.models.Urgency).values()}"
+                    th:value="${urgencyOpt.getId()}"
+                    th:text="${urgencyOpt.getName()}">
+            </option>
+    </select>
+    <br/>
+    <label for="desired_resolution_date">desired_date: </label>
+    <input type="date" th:field="*{desired_resolution_date}" id="desired_resolution_date">
+    <br/>
+    <label for="text">Comment: </label>
+    <input th:name="text" type="text" id="text">
+    <br/>
+
+    <input type="submit" name="save edit" value="Draft"/>
+    <input type="submit" name="save edit" value="New"/>
+
+</form>
+
+<a href="../">All Tickets</a>
+</body>
+</html>
